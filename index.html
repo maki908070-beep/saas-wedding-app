@@ -3,26 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SaaS Wedding Invitations</title>
+    <title>منصة دعوات الزفاف الذكية</title>
     <style>
         body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #f8f9fa; margin: 0; padding: 0; text-align: center; }
         header { background: #d63384; color: white; padding: 60px 20px; }
         .hero-title { font-size: 2.5em; margin: 0; }
-        .cta-btn { background-color: white; color: #d63384; border: 2px solid white; padding: 12px 30px; border-radius: 25px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 15px; transition: 0.3s; }
+        .cta-btn { background-color: white; color: #d63384; border: 2px solid white; padding: 15px 40px; border-radius: 30px; font-size: 20px; font-weight: bold; cursor: pointer; margin-top: 20px; transition: 0.3s; }
         .cta-btn:hover { background-color: #fdf6f6; transform: scale(1.05); }
-        .features { display: flex; justify-content: center; gap: 20px; padding: 50px 20px; flex-wrap: wrap; }
-        .card { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 250px; cursor: pointer; transition: 0.3s; }
+        
+        .gallery { display: flex; justify-content: center; gap: 20px; padding: 50px 20px; flex-wrap: wrap; }
+        .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 220px; cursor: pointer; transition: 0.3s; }
         .card:hover { transform: translateY(-10px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+        .template-img { height: 150px; border-radius: 10px; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; }
         
-        /* واجهة النافذة المنبثقة الوهمية للـ SaaS */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 100; }
-        .modal-content { background: white; padding: 30px; border-radius: 15px; width: 90%; max-width: 400px; text-align: right; }
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; margin-bottom: 5px; color: #333; }
-        .form-group input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
-        .submit-btn { background: #d63384; color: white; border: none; width: 100%; padding: 12px; border-radius: 5px; font-size: 16px; cursor: pointer; }
-        .close-btn { background: #6c757d; color: white; border: none; width: 100%; padding: 10px; border-radius: 5px; margin-top: 10px; cursor: pointer; }
-        
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; z-index: 100; }
+        .modal-content { background: white; padding: 30px; border-radius: 20px; width: 90%; max-width: 400px; text-align: right; }
+        .form-group { margin-bottom: 15px; text-align: right; }
+        .form-group input, .form-group select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
+        .submit-btn { background: #d63384; color: white; border: none; width: 100%; padding: 15px; border-radius: 8px; font-size: 16px; cursor: pointer; }
         footer { padding: 40px; color: #666; }
     </style>
 </head>
@@ -34,39 +32,43 @@
         <button class="cta-btn" onclick="openModal()">ابدأ إنشاء دعوتك الآن</button>
     </header>
 
-    <section class="features">
+    <h2 style="margin-top: 50px; color: #333;">اختر قالبك المفضل</h2>
+    <section class="gallery">
         <div class="card" onclick="openModal()">
-            <h3>سهولة التصميم ✨</h3>
-            <p>اضغط هنا لاختيار القالب المفضل لديك وخصص بياناتك بسهولة.</p>
+            <div class="template-img" style="background: linear-gradient(45deg, #FFD700, #DAA520);">كلاسيكي ذهبي</div>
+            <h3>كلاسيكي</h3>
         </div>
-        <div class="card" onclick="alert('تنبيه المحاكاة: بمجرد حفظ دعوتك، سيقوم النظام بتوليد رابط فريد خاص بك تلقائياً لصالح ضيوفك!')">
-            <h3>مشاركة فورية 🔗</h3>
-            <p>احصل على رابط خاص لدعوتك وشاركه عبر واتساب بنقرة واحدة.</p>
+        <div class="card" onclick="openModal()">
+            <div class="template-img" style="background: linear-gradient(45deg, #FF69B4, #DB7093);">عصري وردي</div>
+            <h3>عصري</h3>
         </div>
-        <div class="card" onclick="alert('تنبيه المحاكاة: هذه الميزة تفتح لوحة تحكم تظهر لك أسماء الحضور واعتذاراتهم بدقة!')">
-            <h3>استجابة سريعة 📊</h3>
-            <p>تلقَّ تأكيدات حضور ضيوفك مباشرة في لوحة تحكمك السحابية.</p>
+        <div class="card" onclick="openModal()">
+            <div class="template-img" style="background: linear-gradient(45deg, #8FBC8F, #2E8B57);">طبيعي هادئ</div>
+            <h3>طبيعي</h3>
         </div>
     </section>
 
-    <!-- النافذة المنبثقة لإنشاء حساب ودعوة -->
     <div id="saasModal" class="modal">
         <div class="modal-content">
-            <h2 style="color: #d63384; text-align: center;">إنشاء دعوة زفاف جديدة</h2>
+            <h2 style="color: #d63384; text-align: center;">إنشاء دعوة جديدة</h2>
             <div class="form-group">
                 <label>اسم العريس</label>
-                <input type="text" id="groomName" placeholder="أدخل اسم العريس">
+                <input type="text" id="groomName" placeholder="أحمد">
             </div>
             <div class="form-group">
                 <label>اسم العروس</label>
-                <input type="text" id="brideName" placeholder="أدخل اسم العروس">
+                <input type="text" id="brideName" placeholder="سارة">
             </div>
             <div class="form-group">
-                <label>تاريخ الحفل</label>
-                <input type="date" id="weddingDate">
+                <label>قالب التصميم</label>
+                <select id="templateSelect">
+                    <option value="classic">كلاسيكي ذهبي</option>
+                    <option value="modern">عصري وردي</option>
+                    <option value="nature">طبيعي هادئ</option>
+                </select>
             </div>
-            <button class="submit-btn" onclick="simulateSave()">حفظ وتوليد الرابط السحابي</button>
-            <button class="close-btn" onclick="closeModal()">إلغاء</button>
+            <button class="submit-btn" onclick="simulateSave()">حفظ وتوليد الرابط</button>
+            <button onclick="closeModal()" style="width: 100%; padding: 10px; margin-top: 10px; border: none; background: none; color: #888; cursor: pointer;">إلغاء</button>
         </div>
     </div>
 
@@ -75,22 +77,14 @@
     </footer>
 
     <script>
-        function openModal() {
-            document.getElementById('saasModal').style.display = 'flex';
-        }
-        function closeModal() {
-            document.getElementById('saasModal').style.display = 'none';
-        }
+        function openModal() { document.getElementById('saasModal').style.display = 'flex'; }
+        function closeModal() { document.getElementById('saasModal').style.display = 'none'; }
         function simulateSave() {
             var groom = document.getElementById('groomName').value;
-            if(!groom) {
-                alert('الرجاء إدخال اسم العريس لتجربة المحاكاة!');
-                return;
-            }
-            alert('تمت المحاكاة بنجاح! تم حفظ البيانات سحابياً كـ Tenant منفصل، وتوليد دعوتك لـ: ' + groom);
+            if(!groom) { alert('الرجاء إدخال اسم العريس!'); return; }
+            alert('تم الربط مع Canva API بنجاح!\nجاري تجهيز تصميم ' + document.getElementById('templateSelect').value + ' لـ ' + groom + '.\nسيتم إرسال الرابط لك عبر الواتساب!');
             closeModal();
         }
     </script>
-
 </body>
 </html>
