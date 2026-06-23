@@ -8,8 +8,21 @@
         body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #f8f9fa; margin: 0; padding: 0; text-align: center; }
         header { background: #d63384; color: white; padding: 60px 20px; }
         .hero-title { font-size: 2.5em; margin: 0; }
+        .cta-btn { background-color: white; color: #d63384; border: 2px solid white; padding: 12px 30px; border-radius: 25px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 15px; transition: 0.3s; }
+        .cta-btn:hover { background-color: #fdf6f6; transform: scale(1.05); }
         .features { display: flex; justify-content: center; gap: 20px; padding: 50px 20px; flex-wrap: wrap; }
-        .card { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 250px; }
+        .card { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 250px; cursor: pointer; transition: 0.3s; }
+        .card:hover { transform: translateY(-10px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+        
+        /* واجهة النافذة المنبثقة الوهمية للـ SaaS */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 100; }
+        .modal-content { background: white; padding: 30px; border-radius: 15px; width: 90%; max-width: 400px; text-align: right; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; color: #333; }
+        .form-group input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
+        .submit-btn { background: #d63384; color: white; border: none; width: 100%; padding: 12px; border-radius: 5px; font-size: 16px; cursor: pointer; }
+        .close-btn { background: #6c757d; color: white; border: none; width: 100%; padding: 10px; border-radius: 5px; margin-top: 10px; cursor: pointer; }
+        
         footer { padding: 40px; color: #666; }
     </style>
 </head>
@@ -18,26 +31,66 @@
     <header>
         <h1 class="hero-title">منصة دعوات الزفاف الذكية 💍</h1>
         <p>صمم دعوة زفافك الإلكترونية وشاركها مع أحبابك في دقائق!</p>
+        <button class="cta-btn" onclick="openModal()">ابدأ إنشاء دعوتك الآن</button>
     </header>
 
     <section class="features">
-        <div class="card">
-            <h3>سهولة التصميم</h3>
-            <p>اختر القالب المفضل لديك وخصص بياناتك بسهولة.</p>
+        <div class="card" onclick="openModal()">
+            <h3>سهولة التصميم ✨</h3>
+            <p>اضغط هنا لاختيار القالب المفضل لديك وخصص بياناتك بسهولة.</p>
         </div>
-        <div class="card">
-            <h3>مشاركة فورية</h3>
-            <p>احصل على رابط خاص لدعوتك وشاركه عبر واتساب.</p>
+        <div class="card" onclick="alert('تنبيه المحاكاة: بمجرد حفظ دعوتك، سيقوم النظام بتوليد رابط فريد خاص بك تلقائياً لصالح ضيوفك!')">
+            <h3>مشاركة فورية 🔗</h3>
+            <p>احصل على رابط خاص لدعوتك وشاركه عبر واتساب بنقرة واحدة.</p>
         </div>
-        <div class="card">
-            <h3>استجابة سريعة</h3>
-            <p>تلقَّ تأكيدات حضور ضيوفك مباشرة في لوحة تحكمك.</p>
+        <div class="card" onclick="alert('تنبيه المحاكاة: هذه الميزة تفتح لوحة تحكم تظهر لك أسماء الحضور واعتذاراتهم بدقة!')">
+            <h3>استجابة سريعة 📊</h3>
+            <p>تلقَّ تأكيدات حضور ضيوفك مباشرة في لوحة تحكمك السحابية.</p>
         </div>
     </section>
+
+    <!-- النافذة المنبثقة لإنشاء حساب ودعوة -->
+    <div id="saasModal" class="modal">
+        <div class="modal-content">
+            <h2 style="color: #d63384; text-align: center;">إنشاء دعوة زفاف جديدة</h2>
+            <div class="form-group">
+                <label>اسم العريس</label>
+                <input type="text" id="groomName" placeholder="أدخل اسم العريس">
+            </div>
+            <div class="form-group">
+                <label>اسم العروس</label>
+                <input type="text" id="brideName" placeholder="أدخل اسم العروس">
+            </div>
+            <div class="form-group">
+                <label>تاريخ الحفل</label>
+                <input type="date" id="weddingDate">
+            </div>
+            <button class="submit-btn" onclick="simulateSave()">حفظ وتوليد الرابط السحابي</button>
+            <button class="close-btn" onclick="closeModal()">إلغاء</button>
+        </div>
+    </div>
 
     <footer>
         <p>تم تطوير المنصة بواسطة: <strong>مشروع تخرج SaaS</strong></p>
     </footer>
+
+    <script>
+        function openModal() {
+            document.getElementById('saasModal').style.display = 'flex';
+        }
+        function closeModal() {
+            document.getElementById('saasModal').style.display = 'none';
+        }
+        function simulateSave() {
+            var groom = document.getElementById('groomName').value;
+            if(!groom) {
+                alert('الرجاء إدخال اسم العريس لتجربة المحاكاة!');
+                return;
+            }
+            alert('تمت المحاكاة بنجاح! تم حفظ البيانات سحابياً كـ Tenant منفصل، وتوليد دعوتك لـ: ' + groom);
+            closeModal();
+        }
+    </script>
 
 </body>
 </html>
