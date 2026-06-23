@@ -5,20 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SaaS Wedding Invitations</title>
     <style>
-        body { font-family: 'Arial', sans-serif; background-color: #fdf6f6; text-align: center; padding: 50px; }
-        .card { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); max-width: 500px; margin: auto; }
-        h1 { color: #d63384; }
-        button { background-color: #d63384; color: white; border: none; padding: 15px 30px; border-radius: 25px; cursor: pointer; font-size: 16px; margin-top: 20px; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #f8f9fa; margin: 0; padding: 0; text-align: center; }
+        header { background: #d63384; color: white; padding: 60px 20px; }
+        .hero-title { font-size: 2.5em; margin: 0; }
+        .features { display: flex; justify-content: center; gap: 20px; padding: 50px 20px; flex-wrap: wrap; }
+        .card { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 250px; }
+        footer { padding: 40px; color: #666; }
     </style>
 </head>
 <body>
 
-    <div class="card">
-        <h1>💍 دعوة زفاف سحابية</h1>
-        <p>مرحباً بكم في منصة الـ SaaS الخاصة بي</p>
-        <p>قم بإنشاء دعوة زفافك الخاصة عبر الإنترنت في ثوانٍ!</p>
-        <button onclick="alert('سأقوم بربط هذا الزر بـ Firebase قريباً!')">ابدأ الآن</button>
-    </div>
+    <header>
+        <h1 class="hero-title">منصة دعوات الزفاف الذكية 💍</h1>
+        <p>صمم دعوة زفافك الإلكترونية وشاركها مع أحبابك في دقائق!</p>
+    </header>
+
+    <section class="features">
+        <div class="card">
+            <h3>سهولة التصميم</h3>
+            <p>اختر القالب المفضل لديك وخصص بياناتك بسهولة.</p>
+        </div>
+        <div class="card">
+            <h3>مشاركة فورية</h3>
+            <p>احصل على رابط خاص لدعوتك وشاركه عبر واتساب.</p>
+        </div>
+        <div class="card">
+            <h3>استجابة سريعة</h3>
+            <p>تلقَّ تأكيدات حضور ضيوفك مباشرة في لوحة تحكمك.</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>تم تطوير المنصة بواسطة: <strong>مشروع تخرج SaaS</strong></p>
+    </footer>
 
 </body>
 </html>
