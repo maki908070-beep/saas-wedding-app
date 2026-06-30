@@ -3,88 +3,747 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة دعوات الزفاف الذكية</title>
+    <title>منصة دعوات الزفاف الذكية - SaaS</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #f8f9fa; margin: 0; padding: 0; text-align: center; }
-        header { background: #d63384; color: white; padding: 60px 20px; }
-        .hero-title { font-size: 2.5em; margin: 0; }
-        .cta-btn { background-color: white; color: #d63384; border: 2px solid white; padding: 15px 40px; border-radius: 30px; font-size: 20px; font-weight: bold; cursor: pointer; margin-top: 20px; transition: 0.3s; }
-        .cta-btn:hover { background-color: #fdf6f6; transform: scale(1.05); }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
-        .gallery { display: flex; justify-content: center; gap: 20px; padding: 50px 20px; flex-wrap: wrap; }
-        .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 220px; cursor: pointer; transition: 0.3s; }
-        .card:hover { transform: translateY(-10px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
-        .template-img { height: 150px; border-radius: 10px; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, sans-serif; 
+            background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 50%, #f48fb1 100%);
+            min-height: 100vh;
+        }
         
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; z-index: 100; }
-        .modal-content { background: white; padding: 30px; border-radius: 20px; width: 90%; max-width: 400px; text-align: right; }
-        .form-group { margin-bottom: 15px; text-align: right; }
-        .form-group input, .form-group select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
-        .submit-btn { background: #d63384; color: white; border: none; width: 100%; padding: 15px; border-radius: 8px; font-size: 16px; cursor: pointer; }
-        footer { padding: 40px; color: #666; }
+        /* الهيدر */
+        header { 
+            background: linear-gradient(135deg, #d63384, #c2185b); 
+            color: white; 
+            padding: 60px 20px; 
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '💍';
+            position: absolute;
+            font-size: 150px;
+            opacity: 0.1;
+            top: -30px;
+            right: -30px;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        header::after {
+            content: '💐';
+            position: absolute;
+            font-size: 120px;
+            opacity: 0.1;
+            bottom: -30px;
+            left: -30px;
+            animation: float 3s ease-in-out infinite 1.5s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .hero-title { 
+            font-size: 3em; 
+            margin: 0; 
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            animation: slideDown 0.8s ease-out;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3em;
+            margin: 15px 0;
+            opacity: 0.95;
+            animation: slideDown 0.8s ease-out 0.2s both;
+        }
+        
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .cta-btn { 
+            background: linear-gradient(135deg, white, #fce4ec); 
+            color: #c2185b; 
+            border: 3px solid white; 
+            padding: 16px 45px; 
+            border-radius: 50px; 
+            font-size: 20px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            margin-top: 25px;
+            transition: all 0.3s;
+            animation: slideDown 0.8s ease-out 0.4s both;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .cta-btn:hover { 
+            background: white; 
+            transform: translateY(-3px) scale(1.05); 
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        
+        /* المعرض */
+        h2.section-title {
+            text-align: center;
+            margin: 50px 0 30px;
+            color: #333;
+            font-size: 2em;
+        }
+        
+        .gallery { 
+            display: flex; 
+            justify-content: center; 
+            gap: 30px; 
+            padding: 20px; 
+            flex-wrap: wrap;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .card { 
+            background: white; 
+            padding: 20px; 
+            border-radius: 20px; 
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1); 
+            width: 250px; 
+            cursor: pointer; 
+            transition: all 0.3s; 
+            text-align: center;
+        }
+        
+        .card:hover { 
+            transform: translateY(-15px); 
+            box-shadow: 0 12px 30px rgba(214, 51, 132, 0.3); 
+        }
+        
+        .template-preview { 
+            height: 180px; 
+            border-radius: 15px; 
+            margin-bottom: 15px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: white; 
+            font-weight: bold;
+            font-size: 1.2em;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .template-preview::after {
+            content: '💑';
+            font-size: 60px;
+            opacity: 0.3;
+        }
+        
+        .template-classic { background: linear-gradient(135deg, #FFD700, #DAA520, #B8860B); }
+        .template-modern { background: linear-gradient(135deg, #FF69B4, #DB7093, #C71585); }
+        .template-nature { background: linear-gradient(135deg, #8FBC8F, #2E8B57, #1a6b3c); }
+        
+        .card h3 { color: #333; margin-bottom: 5px; }
+        .card p { color: #888; font-size: 0.9em; }
+        
+        /* المودال */
+        .modal { 
+            display: none; 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: rgba(0,0,0,0.7); 
+            justify-content: center; 
+            align-items: center; 
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal.show {
+            display: flex;
+            animation: fadeIn 0.3s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .modal-content { 
+            background: white; 
+            padding: 35px; 
+            border-radius: 25px; 
+            width: 95%; 
+            max-width: 500px; 
+            text-align: right;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal-content h2 { 
+            color: #d63384; 
+            text-align: center; 
+            margin-bottom: 25px;
+            font-size: 1.8em;
+        }
+        
+        .form-group { 
+            margin-bottom: 20px; 
+        }
+        
+        .form-group label { 
+            display: block; 
+            margin-bottom: 8px; 
+            color: #555; 
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        
+        .form-group input, 
+        .form-group select { 
+            width: 100%; 
+            padding: 14px; 
+            border: 2px solid #e0e0e0; 
+            border-radius: 12px; 
+            font-size: 16px;
+            transition: border 0.3s;
+            font-family: inherit;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #d63384;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(214, 51, 132, 0.1);
+        }
+        
+        .btn-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 25px;
+        }
+        
+        .submit-btn { 
+            background: linear-gradient(135deg, #d63384, #c2185b); 
+            color: white; 
+            border: none; 
+            flex: 2;
+            padding: 15px; 
+            border-radius: 12px; 
+            font-size: 18px; 
+            font-weight: bold;
+            cursor: pointer; 
+            transition: all 0.3s;
+        }
+        
+        .submit-btn:hover {
+            background: linear-gradient(135deg, #c2185b, #880e4f);
+            transform: scale(1.02);
+        }
+        
+        .cancel-btn {
+            flex: 1;
+            padding: 15px; 
+            border: 2px solid #ddd;
+            background: white;
+            color: #888; 
+            cursor: pointer;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        .cancel-btn:hover {
+            background: #f5f5f5;
+            border-color: #999;
+        }
+        
+        /* شاشة المعاينة */
+        .preview-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            backdrop-filter: blur(8px);
+        }
+        
+        .preview-overlay.show {
+            display: flex;
+            animation: fadeIn 0.4s;
+        }
+        
+        .invitation-card {
+            width: 90%;
+            max-width: 500px;
+            min-height: 550px;
+            border-radius: 25px;
+            padding: 40px 30px;
+            text-align: center;
+            color: white;
+            position: relative;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.5);
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.5) rotate(-5deg); }
+            to { opacity: 1; transform: scale(1) rotate(0deg); }
+        }
+        
+        .invitation-card.classic-bg {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 30%, #0f3460 60%, #533483 100%);
+            border: 4px solid #FFD700;
+        }
+        
+        .invitation-card.modern-bg {
+            background: linear-gradient(135deg, #4a0e4e 0%, #7b1fa2 30%, #c2185b 70%, #e91e63 100%);
+            border: 4px solid #ff80ab;
+        }
+        
+        .invitation-card.nature-bg {
+            background: linear-gradient(135deg, #1a3a1a 0%, #2d5a27 30%, #4a7c3f 70%, #7ca86e 100%);
+            border: 4px solid #c8e6c9;
+        }
+        
+        .card-icon {
+            font-size: 70px;
+            margin-bottom: 15px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .card-title {
+            font-size: 1.8em;
+            margin-bottom: 25px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+        
+        .card-names {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin: 20px 0;
+            line-height: 1.5;
+        }
+        
+        .card-heart {
+            font-size: 50px;
+            margin: 10px 0;
+            animation: pulse 1.5s infinite;
+        }
+        
+        .card-details {
+            font-size: 1.2em;
+            margin-top: 25px;
+            opacity: 0.9;
+            line-height: 1.8;
+        }
+        
+        .card-footer {
+            margin-top: 30px;
+            font-size: 0.9em;
+            opacity: 0.7;
+            border-top: 1px solid rgba(255,255,255,0.3);
+            padding-top: 20px;
+        }
+        
+        .close-preview-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.5);
+            padding: 12px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 16px;
+            z-index: 10;
+            transition: all 0.3s;
+            backdrop-filter: blur(5px);
+        }
+        
+        .close-preview-btn:hover {
+            background: rgba(255,255,255,0.3);
+            border-color: white;
+        }
+        
+        .share-section {
+            margin-top: 25px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .share-btn {
+            padding: 12px 20px;
+            border-radius: 25px;
+            border: 2px solid rgba(255,255,255,0.5);
+            background: rgba(255,255,255,0.1);
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+            backdrop-filter: blur(5px);
+        }
+        
+        .share-btn:hover {
+            background: rgba(255,255,255,0.2);
+            border-color: white;
+            transform: translateY(-2px);
+        }
+        
+        /* الفوتر */
+        footer { 
+            padding: 40px; 
+            color: #666; 
+            text-align: center;
+            background: white;
+            margin-top: 60px;
+        }
+        
+        footer strong {
+            color: #d63384;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .hero-title { font-size: 2em; }
+            .invitation-card { padding: 25px 20px; min-height: 400px; }
+            .card-names { font-size: 1.8em; }
+        }
     </style>
 </head>
 <body>
 
+    <!-- الهيدر -->
     <header>
-        <h1 class="hero-title">منصة دعوات الزفاف الذكية 💍</h1>
-        <p>صمم دعوة زفافك الإلكترونية وشاركها مع أحبابك في دقائق!</p>
-        <button class="cta-btn" onclick="openModal()">ابدأ إنشاء دعوتك الآن</button>
+        <h1 class="hero-title">💍 منصة دعوات الزفاف الذكية</h1>
+        <p class="hero-subtitle">صمم دعوة زفافك الإلكترونية الاحترافية وشاركها مع أحبابك في دقائق!</p>
+        <button class="cta-btn" onclick="openModal()">✨ ابدأ إنشاء دعوتك الآن</button>
     </header>
 
-    <h2 style="margin-top: 50px; color: #333;">اختر قالبك المفضل</h2>
+    <!-- معرض القوالب -->
+    <h2 class="section-title">🎨 اختر قالبك المفضل</h2>
     <section class="gallery">
-        <div class="card" onclick="openModal()">
-            <div class="template-img" style="background: linear-gradient(45deg, #FFD700, #DAA520);">كلاسيكي ذهبي</div>
-            <h3>كلاسيكي</h3>
+        <div class="card" onclick="openModal('classic')">
+            <div class="template-preview template-classic">👑</div>
+            <h3>الكلاسيكي الذهبي</h3>
+            <p>أناقة خالدة</p>
         </div>
-        <div class="card" onclick="openModal()">
-            <div class="template-img" style="background: linear-gradient(45deg, #FF69B4, #DB7093);">عصري وردي</div>
-            <h3>عصري</h3>
+        <div class="card" onclick="openModal('modern')">
+            <div class="template-preview template-modern">💖</div>
+            <h3>العصري الأنيق</h3>
+            <p>لمسة عصرية</p>
         </div>
-        <div class="card" onclick="openModal()">
-            <div class="template-img" style="background: linear-gradient(45deg, #8FBC8F, #2E8B57);">طبيعي هادئ</div>
-            <h3>طبيعي</h3>
+        <div class="card" onclick="openModal('nature')">
+            <div class="template-preview template-nature">🌿</div>
+            <h3>الطبيعي الهادئ</h3>
+            <p>سحر الطبيعة</p>
         </div>
     </section>
 
+    <!-- مودال الإنشاء -->
     <div id="saasModal" class="modal">
         <div class="modal-content">
-            <h2 style="color: #d63384; text-align: center;">إنشاء دعوة جديدة</h2>
+            <h2>✨ إنشاء دعوة زفاف</h2>
+            
             <div class="form-group">
-                <label>اسم العريس</label>
-                <input type="text" id="groomName" placeholder="أحمد">
+                <label>👨 اسم العريس</label>
+                <input type="text" id="groomName" placeholder="أدخل اسم العريس" oninput="updateLivePreview()">
             </div>
+            
             <div class="form-group">
-                <label>اسم العروس</label>
-                <input type="text" id="brideName" placeholder="سارة">
+                <label>👰 اسم العروس</label>
+                <input type="text" id="brideName" placeholder="أدخل اسم العروس" oninput="updateLivePreview()">
             </div>
+            
             <div class="form-group">
-                <label>قالب التصميم</label>
-                <select id="templateSelect">
-                    <option value="classic">كلاسيكي ذهبي</option>
-                    <option value="modern">عصري وردي</option>
-                    <option value="nature">طبيعي هادئ</option>
+                <label>🎨 قالب التصميم</label>
+                <select id="templateSelect" onchange="updateLivePreview()">
+                    <option value="classic">👑 كلاسيكي ذهبي</option>
+                    <option value="modern">💖 عصري أنيق</option>
+                    <option value="nature">🌿 طبيعي هادئ</option>
                 </select>
             </div>
-            <button class="submit-btn" onclick="simulateSave()">حفظ وتوليد الرابط</button>
-            <button onclick="closeModal()" style="width: 100%; padding: 10px; margin-top: 10px; border: none; background: none; color: #888; cursor: pointer;">إلغاء</button>
+            
+            <!-- معاينة مصغرة فورية -->
+            <div id="miniPreview" style="text-align: center; padding: 15px; background: #f8f9fa; border-radius: 12px; margin: 15px 0; display: none;">
+                <p style="color: #888; font-size: 0.9em; margin-bottom: 8px;">👀 معاينة فورية</p>
+                <div id="miniPreviewContent" style="font-size: 1.2em; font-weight: bold; color: #d63384;"></div>
+            </div>
+            
+            <div class="btn-row">
+                <button class="submit-btn" onclick="generateInvitation()">💝 إنشاء الدعوة</button>
+                <button class="cancel-btn" onclick="closeModal()">إلغاء</button>
+            </div>
         </div>
     </div>
 
+    <!-- شاشة عرض الدعوة النهائية -->
+    <div id="previewOverlay" class="preview-overlay">
+        <button class="close-preview-btn" onclick="closePreview()">✕ إغلاق</button>
+        <div class="invitation-card" id="invitationCard">
+            <!-- سيتم ملؤها ديناميكياً -->
+        </div>
+    </div>
+
+    <!-- الفوتر -->
     <footer>
-        <p>تم تطوير المنصة بواسطة: <strong> محمد مكي </strong></p>
+        <p>💍 تم تطوير المنصة بواسطة: <strong>محمد مكي</strong></p>
+        <p style="margin-top: 8px; color: #999; font-size: 0.9em;">منصة SaaS لإدارة دعوات الزفاف - جميع الحقوق محفوظة © 2024</p>
     </footer>
 
     <script>
-        function openModal() { document.getElementById('saasModal').style.display = 'flex'; }
-        function closeModal() { document.getElementById('saasModal').style.display = 'none'; }
-        function simulateSave() {
-            var groom = document.getElementById('groomName').value;
-            if(!groom) { alert('الرجاء إدخال اسم العريس!'); return; }
-            alert('تم الربط مع Canva API بنجاح!\nجاري تجهيز تصميم ' + document.getElementById('templateSelect').value + ' لـ ' + groom + '.\nسيتم إرسال الرابط لك عبر الواتساب!');
-            closeModal();
+        // فتح المودال
+        function openModal(preselectedTemplate = null) {
+            const modal = document.getElementById('saasModal');
+            modal.classList.add('show');
+            
+            if (preselectedTemplate) {
+                document.getElementById('templateSelect').value = preselectedTemplate;
+            }
+            
+            updateLivePreview();
         }
+
+        // إغلاق المودال
+        function closeModal() {
+            document.getElementById('saasModal').classList.remove('show');
+        }
+
+        // تحديث المعاينة المصغرة الفورية
+        function updateLivePreview() {
+            const groom = document.getElementById('groomName').value.trim();
+            const bride = document.getElementById('brideName').value.trim();
+            const miniPreview = document.getElementById('miniPreview');
+            const miniContent = document.getElementById('miniPreviewContent');
+            
+            if (groom || bride) {
+                miniPreview.style.display = 'block';
+                miniContent.innerHTML = `
+                    ${groom || '...'} 💑 ${bride || '...'}<br>
+                    <span style="font-size: 0.8em; color: #888;">${getTemplateName()}</span>
+                `;
+            } else {
+                miniPreview.style.display = 'none';
+            }
+        }
+
+        // الحصول على اسم القالب
+        function getTemplateName() {
+            const template = document.getElementById('templateSelect').value;
+            const names = {
+                'classic': '👑 كلاسيكي ذهبي',
+                'modern': '💖 عصري أنيق',
+                'nature': '🌿 طبيعي هادئ'
+            };
+            return names[template] || '';
+        }
+
+        // إنشاء الدعوة النهائية
+        function generateInvitation() {
+            const groom = document.getElementById('groomName').value.trim();
+            const bride = document.getElementById('brideName').value.trim();
+            const template = document.getElementById('templateSelect').value;
+            
+            // التحقق من الإدخال
+            if (!groom) {
+                alert('⚠️ الرجاء إدخال اسم العريس');
+                document.getElementById('groomName').focus();
+                return;
+            }
+            
+            if (!bride) {
+                alert('⚠️ الرجاء إدخال اسم العروس');
+                document.getElementById('brideName').focus();
+                return;
+            }
+            
+            // إغلاق المودال
+            closeModal();
+            
+            // بناء بطاقة الدعوة
+            const card = document.getElementById('invitationCard');
+            
+            // إزالة كلاسات الخلفية السابقة
+            card.classList.remove('classic-bg', 'modern-bg', 'nature-bg');
+            
+            // تحديد التصميم حسب القالب
+            let icon, title, details, bgClass;
+            
+            switch(template) {
+                case 'classic':
+                    bgClass = 'classic-bg';
+                    icon = '👑';
+                    title = 'بدعوة من قلوب يملؤها الحب';
+                    details = `
+                        يسرنا دعوتكم لحضور حفل زفافنا<br>
+                        في قاعة الفخامة الكبرى<br>
+                        📅 بتاريخ: 15 فبراير 2025<br>
+                        🕗 الساعة: 8 مساءً
+                    `;
+                    break;
+                    
+                case 'modern':
+                    bgClass = 'modern-bg';
+                    icon = '💖';
+                    title = 'بكل الحب والإثارة';
+                    details = `
+                        نتشرف بحضوركم حفل زفافنا<br>
+                        في فندق العنوان العصري<br>
+                        📅 بتاريخ: 20 مارس 2025<br>
+                        🕗 الساعة: 7 مساءً
+                    `;
+                    break;
+                    
+                case 'nature':
+                    bgClass = 'nature-bg';
+                    icon = '🌿';
+                    title = 'في أحضان الطبيعة';
+                    details = `
+                        يسعدنا دعوتكم لزفافنا<br>
+                        في حدائق الربيع الخضراء<br>
+                        📅 بتاريخ: 10 أبريل 2025<br>
+                        🕗 الساعة: 6 مساءً
+                    `;
+                    break;
+            }
+            
+            card.classList.add(bgClass);
+            
+            // ملء البطاقة بالمحتوى
+            card.innerHTML = `
+                <div class="card-icon">${icon}</div>
+                <div class="card-title">${title}</div>
+                <div class="card-heart">💞</div>
+                <div class="card-names">
+                    ${groom}<br>
+                    <span style="font-size: 0.6em;">و</span><br>
+                    ${bride}
+                </div>
+                <div class="card-details">${details}</div>
+                <div class="card-footer">
+                    ✨ تم إنشاء هذه الدعوة باستخدام منصة دعوات الزفاف الذكية
+                </div>
+                <div class="share-section">
+                    <button class="share-btn" onclick="shareInvitation('whatsapp')">💬 واتساب</button>
+                    <button class="share-btn" onclick="shareInvitation('copy')">📋 نسخ النص</button>
+                    <button class="share-btn" onclick="shareInvitation('screenshot')">📸 حفظ الصورة</button>
+                </div>
+            `;
+            
+            // إظهار شاشة المعاينة
+            document.getElementById('previewOverlay').classList.add('show');
+            
+            // إضافة تأثير احتفالي
+            createConfetti();
+        }
+
+        // إغلاق شاشة المعاينة
+        function closePreview() {
+            document.getElementById('previewOverlay').classList.remove('show');
+            // إعادة تعيين الحقول
+            document.getElementById('groomName').value = '';
+            document.getElementById('brideName').value = '';
+            updateLivePreview();
+        }
+
+        // مشاركة الدعوة
+        function shareInvitation(method) {
+            const groom = document.getElementById('groomName').value.trim() || 'العريس';
+            const bride = document.getElementById('brideName').value.trim() || 'العروس';
+            const text = `💍 ${groom} و ${bride}\nيتشرفان بدعوتكم لحضور حفل زفافهما\n✨ تم إنشاء الدعوة عبر منصة دعوات الزفاف الذكية`;
+            
+            switch(method) {
+                case 'whatsapp':
+                    window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+                    break;
+                case 'copy':
+                    navigator.clipboard.writeText(text).then(() => {
+                        alert('✅ تم نسخ نص الدعوة!');
+                    });
+                    break;
+                case 'screenshot':
+                    alert('📸 افتح الدعوة كاملة والتقط لها لقطة شاشة لحفظها!\n(يمكنك استخدام أداة القصاصة في جهازك)');
+                    break;
+            }
+        }
+
+        // تأثير احتفالي (قصاصات ورقية)
+        function createConfetti() {
+            const colors = ['#FFD700', '#FF69B4', '#8FBC8F', '#FF6347', '#9370DB', '#20B2AA'];
+            
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.style.cssText = `
+                        position: fixed;
+                        top: -50px;
+                        left: ${Math.random() * 100}%;
+                        width: ${Math.random() * 10 + 8}px;
+                        height: ${Math.random() * 10 + 8}px;
+                        background: ${colors[Math.floor(Math.random() * colors.length)]};
+                        border-radius: ${Math.random() > 0.5 ? '50%' : '2px'};
+                        z-index: 9999;
+                        pointer-events: none;
+                        animation: confettiFall ${Math.random() * 2 + 2}s linear;
+                    `;
+                    
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => confetti.remove(), 4000);
+                }, i * 50);
+            }
+        }
+
+        // إضافة أنميشن القصاصات
+        const confettiStyle = document.createElement('style');
+        confettiStyle.textContent = `
+            @keyframes confettiFall {
+                0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+                100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(confettiStyle);
+
+        // إغلاق المودال عند النقر خارجه
+        document.getElementById('saasModal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+
+        // إغلاق المعاينة عند النقر على الخلفية
+        document.getElementById('previewOverlay').addEventListener('click', function(e) {
+            if (e.target === this) closePreview();
+        });
+
+        // دعم زر Escape للإغلاق
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+                closePreview();
+            }
+        });
     </script>
 </body>
 </html>
